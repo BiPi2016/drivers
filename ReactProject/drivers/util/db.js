@@ -4,6 +4,7 @@ const mongoURI = process.env.ATLAS_URI;
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
 };
 
 const connectDB = async () => {
