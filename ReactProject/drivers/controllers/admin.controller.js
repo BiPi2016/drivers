@@ -81,19 +81,11 @@ exports.createUser = [
       }
 
       //Creates a new user
-      const hashed = await hashPassword(password);
-      if (typeof (hashed) === 'Error') {
-        return res.status(400).json({
-          errors: [{
-            msg: 'Server error'
-          }]
-        })
-      }
       user = new User({
         name,
         email,
         telephone,
-        password: hashed,
+        password: await hashPassword(password), // async function hashPassword, needs await, any errors while hashing will be passed to next() in catch block
       });
 
       //Saving in db
