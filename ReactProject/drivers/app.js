@@ -2,7 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
 //const cors = require("cors");
-const userRoutes = require("./routes/api/user.routes");
+const adminRoutes = require("./routes/api/admin.routes");
+const userRoutes = require('./routes/api/user.route');
 
 const app = express();
 
@@ -37,7 +38,8 @@ app.use(
 app.use(morgan("combined"));
 
 //Routes
-app.use("/api/user", userRoutes);
+app.use("/api/admin", adminRoutes);
+app.use('/api/user', userRoutes);
 
 //Error handling
 app.use((req, res, next) => {
@@ -49,11 +51,9 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
-    errors: [
-      {
-        msg: err.message,
-      },
-    ],
+    errors: [{
+      msg: err.message,
+    }, ],
   });
 });
 
