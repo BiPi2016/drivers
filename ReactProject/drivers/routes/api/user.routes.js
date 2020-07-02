@@ -3,8 +3,8 @@ const userController = require('../../controllers/user.controller');
 const checkAuth = require('../../util/checkAuth');
 
 //@Method GET /api/user/
-//@Desc Signin in user access this
+//@Desc Gets current user 
 //@Access Protected
-router.get('/greetings', checkAuth, userController.getGreetings);
+router.get('/me', checkAuth, userController.getCurrentUser);
 
 module.exports = router;

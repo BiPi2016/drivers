@@ -1,16 +1,3 @@
-/* const mongoose = require("mongoose");
-const User = require('../models/User.model');
-
-exports.getAuthenticatedUser = async (req, res, next) => {
-    try {
-        const id = req.user.userID;
-        const user = await (await User.findById(id)).isSelected('-password');
-        console.log(user);
-    } catch (error) {
-        next(error);
-    }
-}; */
-
 const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const jwt = require("jsonwebtoken");
@@ -23,6 +10,7 @@ const {
     validationResult
 } = require("express-validator");
 
+//Confirms email and password, Signs in the user and returns the token or error message
 exports.postSignIn = [
     check("email").isEmail().withMessage("Provide a valid email"),
     check("password")

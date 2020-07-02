@@ -10,7 +10,22 @@ const {
     validationResult
 } = require("express-validator");
 
-
-exports.getGreetings = (req, res, next) => {
-    res.json('Greetings ' + req.user.userID);
-}
+//Returns current user
+exports.getCurrentUser = async (req, res, next) => {
+    try {
+        console.log('getting current user')
+        const id = req.user.userID;
+        console.log('User ' + id)
+        if (!id) {
+            next(err);
+        }
+        const user = await (await User.findById(id).select('-password'));
+        return res.json(user);
+    } catch (error) {
+        return res.status(500).json({
+            errors: {
+                msg: 'Server error'
+            }
+        });
+    }
+};
