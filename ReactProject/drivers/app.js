@@ -3,7 +3,8 @@ const morgan = require("morgan");
 require("dotenv").config();
 //const cors = require("cors");
 const adminRoutes = require("./routes/api/admin.routes");
-const userRoutes = require('./routes/api/user.route');
+const userRoutes = require('./routes/api/user.routes');
+const authRoutes = require('./routes/api/auth.routes');
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization X-Auth-Token"
   );
   if (req.method === "OPTIONS") {
     res.header(
@@ -40,6 +41,7 @@ app.use(morgan("combined"));
 //Routes
 app.use("/api/admin", adminRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
 
 //Error handling
 app.use((req, res, next) => {
